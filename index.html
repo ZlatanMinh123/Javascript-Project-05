@@ -34,14 +34,14 @@
 
             <div class="form-group">
                 <label for="password" class="form-label">Mật khẩu</label>
-                <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                <input id="password" name="password" type="text" placeholder="Nhập mật khẩu" class="form-control">
                 <span class="form-message"></span>
             </div>
 
             <div class="form-group">
                 <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
                 <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu"
-                    type="password" class="form-control">
+                    type="text" class="form-control">
                 <span class="form-message"></span>
             </div>
 
@@ -57,9 +57,14 @@
             form: '#form-1',
             errorSelector: '.form-message',
             rules: [
-                Validator.isRequired('#fullname'),
+                Validator.isRequired('#fullname', 'Vui lòng nhập đầy đủ tên của bạn'),
+                Validator.isRequired('#email'),
                 Validator.isEmail('#email'),
-                Validator.minLength('#password', 6)
+                Validator.minLength('#password', 6),
+                Validator.isRequired('#password_confirmation'),
+                Validator.isConfirmed('#password_confirmation', function () {
+                    return document.querySelector('#form-1 #password').value;
+                }, 'Mật khẩu nhập lại không chính xác')
             ]
         });
     </script>
